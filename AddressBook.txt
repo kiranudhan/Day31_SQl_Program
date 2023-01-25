@@ -1,0 +1,93 @@
+//UC1
+create database AddressBookService;
+
+show databases;
++--------------------+
+| Database           |
++--------------------+
+| addressbookservice |
+
+use AddressBookService;
+Database changed
+
+select database();
++--------------------+
+| database()         |
++--------------------+
+| addressbookservice |
++--------------------+
+
+//uc2
+create table Address_book(id int unsigned NOT NULL AUTO_INCREMENT,
+    -> first_name varchar(15) NOT NULL,
+    -> last_name varchar(10) NOT NULL,
+    -> city varchar(50) NOT NULL,
+    -> state varchar(50) NOT NULL,
+    -> zip int NOT NULL,
+    -> phoneNo long NOT NULL,
+    -> email varchar(100) NOT NULL,
+    -> primary key(id)
+    -> );
+
+desc Address_book;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int unsigned | NO   | PRI | NULL    | auto_increment |
+| first_name | varchar(15)  | NO   |     | NULL    |                |
+| last_name  | varchar(10)  | NO   |     | NULL    |                |
+| city       | varchar(50)  | NO   |     | NULL    |                |
+| state      | varchar(50)  | NO   |     | NULL    |                |
+| zip        | int          | NO   |     | NULL    |                |
+| phoneNo    | mediumtext   | NO   |     | NULL    |                |
+| email      | varchar(100) | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+//UC3
+ insert into Address_Book(first_name,last_name,city,state,zip,phoneNo,email)
+    -> values('kiran','udhan','jalna','maharashtra',431209,12345678,'abc@123gmail.com');
+
+ insert into address_book(first_name,last_name,city,state,zip,phoneNo,email)
+    -> values('swati','gujar','beed','mh',1234,987654321,'XYZ@gmail.com');
+
+select *from address_book;
++----+------------+-----------+-------+-------------+--------+-----------+------------------+
+| id | first_name | last_name | city  | state       | zip    | phoneNo   | email            |
++----+------------+-----------+-------+-------------+--------+-----------+------------------+
+|  1 | kiran      | udhan     | jalna | maharashtra | 431209 | 12345678  | abc@123gmail.com |
+|  2 | swati      | gujar     | beed  | mh          |   1234 | 987654321 | XYZ@gmail.com    |
++----+------------+-----------+-------+-------------+--------+-----------+------------------+
+
+//UC4
+update address_book set state='maharashtra' where first_name ='swati';
+
+//UC5
+ select *from address_book where city ='jalna' or state ='maharashtra';
++----+------------+-----------+-------+-------------+--------+-----------+------------------+
+| id | first_name | last_name | city  | state       | zip    | phoneNo   | email            |
++----+------------+-----------+-------+-------------+--------+-----------+------------------+
+|  1 | kiran      | udhan     | jalna | maharashtra | 431209 | 12345678  | abc@123gmail.com |
+|  2 | swati      | gujar     | beed  | maharashtra |   1234 | 987654321 | XYZ@gmail.com    |
++----+------------+-----------+-------+-------------+--------+-----------+------------------+
+
+//UC7
+alter table Address_book add type varchar(15) after last_name;
+update address_book set type='friend' where first_name ='kiran';
+select *from address_book;
++----+------------+-----------+--------+-------+-------------+--------+-----------+------------------+
+| id | first_name | last_name | type   | city  | state       | zip    | phoneNo   | email            |
++----+------------+-----------+--------+-------+-------------+--------+-----------+------------------+
+|  1 | kiran      | udhan     | friend | jalna | maharashtra | 431209 | 12345678  | abc@123gmail.com |
+|  2 | swati      | gujar     | family | beed  | maharashtra |   1234 | 987654321 | XYZ@gmail.com    |
++----+------------+-----------+--------+-------+-------------+--------+-----------+------------------+
+
+//UC8
+ select count(id) as person from address_book;
++--------+
+| person |
++--------+
+|      2 |
++--------+
+
+//UC9
+delete from address_book where first_name='swati';
